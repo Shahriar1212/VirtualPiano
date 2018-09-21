@@ -18,7 +18,8 @@ public class Equalizer extends javax.swing.JFrame{
      * Creates new form Equalizer
      */
     public void defaultValue(){
-        dynamic_slider_value.setText("85");
+        /// setting default value
+        dynamic_slider_value.setText("85"); 
         duration_slider_value.setText("90");
         pan_slider_value.setText("50");
         rythm_slider_value.setText("100");
@@ -266,6 +267,10 @@ public class Equalizer extends javax.swing.JFrame{
     Tune et = new Tune();
     private void dynamic_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_dynamic_sliderStateChanged
         // TODO add your handling code here:
+        
+        // getting value from slider
+        // setting it to dynamic(volume)
+        // printing the value for bug test
         dynamic_slider_value.setText(Integer.toString(dynamic_slider.getValue()));
         et.setDynamic(dynamic_slider.getValue());
         System.out.println(dynamic_slider.getValue());
@@ -273,31 +278,39 @@ public class Equalizer extends javax.swing.JFrame{
     }//GEN-LAST:event_dynamic_sliderStateChanged
 
     private void duration_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_duration_sliderStateChanged
-        // TODO add your handling code here:
+        
+        
+        // getting value from duration slider 
+        // set the value
         duration_slider_value.setText(Integer.toString(duration_slider.getValue()));
         double temp = duration_slider.getValue()/100;
-        et.setDuration(temp);
-        
-        
+        et.setDuration(temp);   
     }//GEN-LAST:event_duration_sliderStateChanged
 
     private void pan_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pan_sliderStateChanged
-        // TODO add your handling code here:
-        pan_slider_value.setText(Integer.toString(pan_slider.getValue()));
         
+        // getting value from slider
+        // set value
+        pan_slider_value.setText(Integer.toString(pan_slider.getValue()));       
         double temp = pan_slider.getValue()/100;
         et.setPan(temp);
     }//GEN-LAST:event_pan_sliderStateChanged
 
     private void rythm_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_rythm_sliderStateChanged
-        // TODO add your handling code here:
+        
+        
+        // get rythm value
+        // set rythm value
         rythm_slider_value.setText(Integer.toString(pan_slider.getValue()));
         double temp = rythm_slider.getValue()/100;
         et.setRythm(temp);
     }//GEN-LAST:event_rythm_sliderStateChanged
 
     private void reset_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reset_btnActionPerformed
-        // TODO add your handling code here:
+        
+        /// reset all the value to default
+        /// these default value are given in jmusic library.
+        
         dynamic_slider.setValue(85);
         duration_slider.setValue(90);
         pan_slider.setValue(50);
@@ -305,7 +318,10 @@ public class Equalizer extends javax.swing.JFrame{
     }//GEN-LAST:event_reset_btnActionPerformed
 
     private void delay_sliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_delay_sliderStateChanged
-        // TODO add your handling code here:
+        
+        // set the delay time.
+        // this value is used in autoplay
+        
         int temp = delay_slider.getValue();
         MyFrame.setDelay(temp);
         delay_slider_value.setText(Integer.toString(temp));

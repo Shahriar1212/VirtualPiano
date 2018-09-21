@@ -9,14 +9,17 @@ import mainFrame.Equalizer;
 
 public class Tune {
     
-    //Equalizer e = new Equalizer();
     
     
+    /// default value of tune
+    /// these default value are given in jmusic library
     static double duration = 0.9;
     static int dynamic = 127;
     double rythm = 1.0;
     int maxDynamic = 127;
 
+    
+    /// getter and setter to set the value
     public double getDuration() {
         return duration;
     }

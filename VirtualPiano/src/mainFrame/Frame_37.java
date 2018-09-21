@@ -16,15 +16,15 @@ import java.awt.event.KeyListener;
  */
 public class Frame_37 extends javax.swing.JFrame implements KeyListener{
 
-    /**
-     * Creates new form Frame_37
-     */
     public Frame_37() {
         initComponents();
         jTextField1.addKeyListener(this);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         
     }
+    
+    // creating object of tune class
+    // tune class has all the node information to play
     Tune tone= new Tune();
 
     /**
@@ -491,7 +491,7 @@ public class Frame_37 extends javax.swing.JFrame implements KeyListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void _37_sW_G3SActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event__37_sW_G3SActionPerformed
-        // TODO add your handling code here:
+        
         tone.tf_ws_G3s();
     }//GEN-LAST:event__37_sW_G3SActionPerformed
 

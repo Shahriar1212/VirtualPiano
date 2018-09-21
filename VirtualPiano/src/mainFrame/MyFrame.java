@@ -34,15 +34,6 @@ import rsbutton.RSButtonMetro;
  */
 public class MyFrame extends javax.swing.JFrame implements KeyListener{
     
-    long total_length;
-    long pouse;
-    FileInputStream FIS;
-    BufferedInputStream BIS;
-    Player player;
-    File myFile = null;
-    
-    
-    
     public MyFrame() {
         initComponents();
         keyInput.addKeyListener(this);
@@ -995,7 +986,6 @@ public class MyFrame extends javax.swing.JFrame implements KeyListener{
     private void btn_stop_recordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_stop_recordActionPerformed
 
         save_name_lbl.setText("Saved as: "+savedFileName);
-        
         /// stop recording
         /// stop collecting data 
         targetLine.stop();
@@ -1406,55 +1396,62 @@ public class MyFrame extends javax.swing.JFrame implements KeyListener{
     /// =========================== Play Music ==================================///
     boolean playing = false;
     boolean poused = true;
+    long total_length;
+    long pouse;
+    FileInputStream FIS;
+    BufferedInputStream BIS;
+    Player player;
+    File myFile = null;
+    
     private void btn_play_musicMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_play_musicMouseReleased
         
-            JFileChooser chooser = new JFileChooser();
+            /// open file chooser
+        JFileChooser chooser = new JFileChooser();
+        int val = chooser.showOpenDialog(null);
 
-            int val = chooser.showOpenDialog(null);
+        
+        if (val == JFileChooser.APPROVE_OPTION) {
+            myFile = chooser.getSelectedFile(); // select a mp3 file.
+            String song = myFile + ""; // convert file name to string
+            String name = chooser.getSelectedFile().getName();
+            lbl.setText(name); // display mp3 name to lable
+        }
+        try {
+            FIS = new FileInputStream(myFile); // choosing the target file
+            BIS = new BufferedInputStream(FIS); // buffer data to play 
+            player = new Player(BIS); 
+            total_length = FIS.available(); // total length of the song i.e mp3 data. 
 
-            if(val == JFileChooser.APPROVE_OPTION){
-                myFile = chooser.getSelectedFile();
-                String song = myFile+"";
-
-                String name = chooser.getSelectedFile().getName();
-                lbl.setText(name);
-            }
-            try{
-                FIS = new FileInputStream(myFile);
-                BIS = new BufferedInputStream(FIS);
-                player = new Player(BIS);
-                total_length = FIS.available();
-
-                new Thread(){
-                    public void run(){
-                        try{
-                            player.play();
-                        } catch(Exception e){
-                            System.out.println(e);
-                        }
+            new Thread() {
+                public void run() {
+                    try {
+                        player.play(); // play mp3 using buffer data
+                    } catch (Exception e) {
+                        System.out.println(e);
                     }
-                }.start();
-            } catch(Exception e){
-                System.out.println(e);
-            }
-            poused = true;
-            playing = false; 
+                }
+            }.start();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        poused = true;
+        playing = false; 
     }//GEN-LAST:event_btn_play_musicMouseReleased
 
     private void btn_pause_musicMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_pause_musicMouseReleased
-        if(player != null){
-            try{
-                pouse = FIS.available();
-                player.close();
-            } catch(Exception e){
+        if (player != null) {
+            try {
+                pouse = FIS.available(); // mp3 will pouse if it is playing
+                player.close(); // stop, if the data i.e song is end.
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }
     }//GEN-LAST:event_btn_pause_musicMouseReleased
 
     private void btn_stop_musicMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_stop_musicMouseReleased
-        if(player != null){
-            player.close();
+        if (player != null) { // check if music is playing or not
+            player.close(); // stop the music
             lbl.setText(null);
         }
     }//GEN-LAST:event_btn_stop_musicMouseReleased
@@ -1487,6 +1484,8 @@ public class MyFrame extends javax.swing.JFrame implements KeyListener{
     public void setrSButtonMetro8(RSButtonMetro rSButtonMetro8) {
         this.btn_37_piano_ = rSButtonMetro8;
     }
+    
+    /// ========================== AutoPlay ==================================== ///
     
     private void playTuneInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playTuneInputActionPerformed
         // TODO add your handling code here:
@@ -1614,7 +1613,7 @@ public class MyFrame extends javax.swing.JFrame implements KeyListener{
                  
                 if(check == ' '){
                     try {
-                        Thread.sleep(400);
+                        Thread.sleep(100);
                     } catch (InterruptedException ex) {
                         Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -1754,122 +1753,7 @@ public class MyFrame extends javax.swing.JFrame implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-//        if(e.getKeyCode() == KeyEvent.VK_1){
-//            tone.tf_1_C2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_2){
-//            tone.tf_2_D2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_3){
-//            tone.tf_3_E2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_4){
-//            tone.tf_4_F2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_5){
-//            tone.tf_5_G2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_6){
-//           tone.tf_6_A2();
-//        }
-//        
-//        if(e.getKeyCode() == KeyEvent.VK_7){
-//            tone.tf_7_B2();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_8){
-//            tone.tf_8_C3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_9){
-//            tone.tf_9_D3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_0){
-//           tone.tf_0_E3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_Q){
-//            tone.tf_q_F3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_W){
-//            tone.tf_w_G3();
-//        }
-//        
-//        if(e.getKeyCode() == KeyEvent.VK_E){
-//            tone.tf_e_A3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_R){
-//            tone.tf_r_B3();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_T){
-//            tone.tf_t_C4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_Y){
-//           tone.tf_y_D4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_U){
-//            tone.tf_u_E4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_I){
-//            tone.tf_i_F4();
-//        }
-//        
-//        if(e.getKeyCode() == KeyEvent.VK_O){
-//            tone.tf_o_G4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_P){
-//            tone.tf_p_A4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_A){
-//            tone.tf_a_B4();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_S){
-//           tone.tf_s_C5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_D){
-//            tone.tf_d_D5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_F){
-//            tone.tf_f_E5();
-//        }
-//        
-//        if(e.getKeyCode() == KeyEvent.VK_G){
-//            tone.tf_g_F5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_H){
-//            tone.tf_h_G5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_J){
-//            tone.tf_j_A5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_K){
-//           tone.tf_k_B5();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_L){
-//            tone.tf_l_C6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_Z){
-//            tone.tf_z_D6();
-//        }
-//        
-//        if(e.getKeyCode() == KeyEvent.VK_X){
-//            tone.tf_x_E6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_C){
-//            tone.tf_c_F6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_V){
-//            tone.tf_v_G6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_B){
-//           tone.tf_b_A6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_N){
-//            tone.tf_n_B6();
-//        }
-//        if(e.getKeyCode() == KeyEvent.VK_M){
-//            tone.tf_m_C7();
-//        }
-        
-        
-        
+
         ///======================= chat input ================================///
         if(e.getKeyChar() == '1'){
             tone.tf_1_C2();
